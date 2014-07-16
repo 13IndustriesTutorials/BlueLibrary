@@ -10,4 +10,20 @@ import UIKit
 
 class HTTPClient: NSObject {
    
+    
+    func getRequest(url:String)->AnyObject!
+    {
+        return nil
+    }
+    
+    func postRequest(url:String, body:String)->AnyObject!
+    {
+        return nil
+    }
+    
+    func downloadImage(url:String)->UIImage!
+    {
+        return nil
+    }
+    
 }
