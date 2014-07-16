@@ -17,6 +17,7 @@
 		CE643BEB197605A9007C9E11 /* AlbumView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE643BEA197605A9007C9E11 /* AlbumView.swift */; };
 		CE643BF01976114D007C9E11 /* LibraryAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE643BEF1976114D007C9E11 /* LibraryAPI.swift */; };
 		CE643BF2197613EC007C9E11 /* PersistencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE643BF1197613EC007C9E11 /* PersistencyManager.swift */; };
+		CE643BF4197634C6007C9E11 /* Album+TableRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE643BF3197634C6007C9E11 /* Album+TableRepresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		CE643BEA197605A9007C9E11 /* AlbumView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlbumView.swift; sourceTree = "<group>"; };
 		CE643BEF1976114D007C9E11 /* LibraryAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LibraryAPI.swift; sourceTree = "<group>"; };
 		CE643BF1197613EC007C9E11 /* PersistencyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersistencyManager.swift; sourceTree = "<group>"; };
+		CE643BF3197634C6007C9E11 /* Album+TableRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Album+TableRepresentation.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				CE643B9E1975FE69007C9E11 /* AppDelegate.swift */,
+				CE643BF3197634C6007C9E11 /* Album+TableRepresentation.swift */,
 				CE643BEE1976107B007C9E11 /* View */,
 				CE643BEC19761058007C9E11 /* ViewControllers */,
 				CE643BED19761063007C9E11 /* Models */,
@@ -256,6 +259,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE643BE519760366007C9E11 /* ViewController.swift in Sources */,
+				CE643BF4197634C6007C9E11 /* Album+TableRepresentation.swift in Sources */,
 				CE643B9F1975FE69007C9E11 /* AppDelegate.swift in Sources */,
 				CE643BF01976114D007C9E11 /* LibraryAPI.swift in Sources */,
 				CE643BE8197603AF007C9E11 /* HTTPClient.swift in Sources */,
@@ -438,6 +442,7 @@
 				CE643BB71975FE69007C9E11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CE643BB81975FE69007C9E11 /* Build configuration list for PBXNativeTarget "BlueLibraryTests" */ = {
 			isa = XCConfigurationList;
@@ -446,6 +451,7 @@
 				CE643BBA1975FE69007C9E11 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
