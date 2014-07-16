@@ -16,7 +16,7 @@ class AlbumView: UIView {
     
     init(frame: CGRect) {
         
-//        self.albumCover = nil;
+        self.albumCover = nil;
         self.activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle:UIActivityIndicatorViewStyle.White)
         super.init(frame: frame)
     }

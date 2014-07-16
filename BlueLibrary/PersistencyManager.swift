@@ -20,7 +20,11 @@ class PersistencyManager: NSObject {
         
         var album3 = Album(title: "Nothing Like The Sun", artist: "Sting", genre: "Pop", coverUrl: "http://www.coversproject.com/static/thumbs/album/album_sting_nothing%20like%20the%20sun.png", year: "1999")
         
-        self.albums = [album1, album2, album3]
+        var album4 = Album(title: "Staring at the Sun", artist: "U2", genre: "Pop", coverUrl: "http://www.coversproject.com/static/thumbs/album/album_u2_staring%20at%20the%20sun.png", year: "2000")
+        
+        var album5 = Album(title: "American Pie", artist: "American Pie", genre: "Pop", coverUrl:"http://www.coversproject.com/static/thumbs/album/album_madonna_american%20pie.png", year: "2000")
+        
+        self.albums = [album1, album2, album3, album4, album5]
     }
     
     
