@@ -43,7 +43,7 @@ class LibraryAPI: NSObject {
         
         if isOnline
         {
-            
+            self.httpClient!.postRequest("/api/addAlbum", body:"\(index.description)")
         }
     }
     
@@ -51,6 +51,11 @@ class LibraryAPI: NSObject {
     func deleteAlbumAtIndex(index:Int)
     {
         self.persistencyManager!.deleteAlbumAtIndex(index)
+        
+        if isOnline
+        {
+            self.httpClient!.postRequest("/api/deleteAlbum", body:"\(index.description)")
+        }
     }
 
 }
