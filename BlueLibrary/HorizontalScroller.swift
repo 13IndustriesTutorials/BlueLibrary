@@ -19,9 +19,9 @@ import UIKit
 
 class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelegate {
 
-    let ViewPadding = 10
-    let ViewDimensions = 100
-    let ViewOffset = 100
+    let ViewPadding:Float = 10
+    let ViewDimensions:Float = 100
+    let ViewsOffset:Float = 100
     
     let scrollView:UIScrollView
     
@@ -68,6 +68,40 @@ class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelega
     
     func reload()->Void
     {
+        if self.delegate? == nil
+        {
+            return
+        }
+        
+        for view in self.scrollView.subviews as UIView[]!
+        {
+            view.removeFromSuperview()
+        }
+        
+        var xValue = self.ViewsOffset
+        
+        var numberViews = self.delegate!.numberOfViewsForHorizontalScroller(self)
+        
+        for index in 0..numberViews
+        {
+            xValue += self.ViewPadding
+            var view = self.scrollView.subviews[index] as UIView
+            view.frame = CGRectMake(xValue, self.ViewPadding, self.ViewDimensions, self.ViewDimensions)
+            self.scrollView.addSubview(view)
+            xValue += self.ViewDimensions + self.ViewPadding
+        }
+        
+    
+        self.scrollView.contentSize = CGSizeMake(xValue+self.ViewsOffset, self.frame.size.height)
+        
+        if self.delegate!.respondsToSelector("initialViewIndexForHorizontalScroller")
+        {
+            var initialView:Int = self.delegate!.initialViewIndexForHorizontalScroller!(self)
+            var size:Float = 2 * self.ViewPadding
+            var result:Float = 3 * size
+            self.scrollView.contentOffset = CGPointMake(result, 0)
+            
+        }
         
     }
 
