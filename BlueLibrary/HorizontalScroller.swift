@@ -73,12 +73,12 @@ class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelega
 
     func numberOfViewsForHorizontalScroller(scroller:HorizontalScroller)->Int
     {
-        return 0
+        return self.scrollView.subviews.count
     }
     
     func horizontalScrollerViewAtIndex(scroller:HorizontalScroller, index:Int)->UIView
     {
-        return UIView()
+        return self.scrollView.subviews[index] as UIView
     }
     
     func initialViewIndexForHorizontalScroller(scroller:HorizontalScroller)->Int
