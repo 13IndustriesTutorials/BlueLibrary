@@ -20,6 +20,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         
         self.currentAlbumIndex = 0;
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.view.frame = CGRectMake(0, 120, self.view.frame.size.width, self.view.frame.size.height)
     }
 
     override func viewDidLoad() {
@@ -49,14 +50,15 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         
         if !cell{
             
-            cell = UITableViewCell(style: UITableViewCellStyle.Default, reuseIdentifier: cellIdentifier)
+            cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: cellIdentifier)
         }
         
         var titles:NSArray = self.currentAlbumData!.objectForKey("titles") as AnyObject[]!
         cell!.textLabel.text = titles.objectAtIndex(indexPath.row) as String
         
         var values:NSArray = self.currentAlbumData!.objectForKey("values") as AnyObject[]!
-        //cell!.detailTextLabel.text = values.objectAtIndex(indexPath.row) as String
+        cell!.detailTextLabel.text = values.objectAtIndex(indexPath.row) as String
+        
         return cell
     }
     
@@ -69,7 +71,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     {
         if albumIndex < self.allAlbums!.count{
             var album = self.allAlbums![albumIndex] as Album
-            self.currentAlbumData = album.tableRepresentation()
+            self.currentAlbumData = album.tableRepresentation() as NSDictionary
         }
         else{
             self.currentAlbumData = nil;

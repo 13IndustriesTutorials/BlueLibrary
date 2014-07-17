@@ -88,7 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				CE643B9E1975FE69007C9E11 /* AppDelegate.swift */,
-				CE643BF3197634C6007C9E11 /* Album+TableRepresentation.swift */,
 				CE643BEE1976107B007C9E11 /* View */,
 				CE643BEC19761058007C9E11 /* ViewControllers */,
 				CE643BED19761063007C9E11 /* Models */,
@@ -146,6 +145,7 @@
 		CE643BED19761063007C9E11 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CE643BF3197634C6007C9E11 /* Album+TableRepresentation.swift */,
 				CE643BBB197601D3007C9E11 /* Album.swift */,
 			);
 			name = Models;

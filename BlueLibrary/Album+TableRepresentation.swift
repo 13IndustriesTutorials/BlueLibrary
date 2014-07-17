@@ -10,12 +10,11 @@ import UIKit
 
 extension Album {
    
-    
     func tableRepresentation()->NSDictionary!
     {
-        //var keys = ["Artist", "Album", "Genre",  "Year"]
-        //var data = [self.artist, self.title, self.genre, self.year]
-        var albumInfo = ["titles": ["Artist", "Album", "Genre",  "Year"],"values": [self.artist, self.title, self.genre, self.year]]
+        var keys:NSArray = ["Artist", "Album", "Genre",  "Year"]
+        var data:NSArray = [self.artist!, self.title!, self.genre!, self.year!]
+        var albumInfo = ["titles": keys,"values": data]
         
         return albumInfo
     }
