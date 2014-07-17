@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE2A8AD7197774C300DDF31B /* HorizontalScroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2A8AD6197774C300DDF31B /* HorizontalScroller.swift */; };
 		CE643B9F1975FE69007C9E11 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE643B9E1975FE69007C9E11 /* AppDelegate.swift */; };
 		CE643BA61975FE69007C9E11 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE643BA51975FE69007C9E11 /* Images.xcassets */; };
 		CE643BB21975FE69007C9E11 /* BlueLibraryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE643BB11975FE69007C9E11 /* BlueLibraryTests.swift */; };
@@ -31,6 +32,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CE2A8AD6197774C300DDF31B /* HorizontalScroller.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HorizontalScroller.swift; sourceTree = "<group>"; };
 		CE643B991975FE69007C9E11 /* BlueLibrary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BlueLibrary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE643B9D1975FE69007C9E11 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE643B9E1975FE69007C9E11 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				CE643BEA197605A9007C9E11 /* AlbumView.swift */,
+				CE2A8AD6197774C300DDF31B /* HorizontalScroller.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				CE643BF4197634C6007C9E11 /* Album+TableRepresentation.swift in Sources */,
 				CE643B9F1975FE69007C9E11 /* AppDelegate.swift in Sources */,
 				CE643BF01976114D007C9E11 /* LibraryAPI.swift in Sources */,
+				CE2A8AD7197774C300DDF31B /* HorizontalScroller.swift in Sources */,
 				CE643BE8197603AF007C9E11 /* HTTPClient.swift in Sources */,
 				CE643BEB197605A9007C9E11 /* AlbumView.swift in Sources */,
 				CE643BBC197601D3007C9E11 /* Album.swift in Sources */,
