@@ -13,7 +13,7 @@ class Album {
     var title:String?
     var artist:String?
     var genre:String?
-    var coverUrlL:String?
+    var coverUrl:String?
     var year:String?
     
     init(title:String, artist:String, genre:String, coverUrl:String, year:String)
@@ -21,7 +21,7 @@ class Album {
         self.title = title
         self.artist = artist
         self.genre = genre
-        self.coverUrlL = coverUrl
+        self.coverUrl = coverUrl
         self.year = year
         
     }

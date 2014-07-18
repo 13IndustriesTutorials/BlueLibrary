@@ -14,14 +14,12 @@ import UIKit
     
     func horizontalScrollerClickedViewAtIndex(scroller:HorizontalScroller, index:Int)->Void
     
-    //horizontalScroller:(HorizontalScroller*)scroller clickedViewAtIndex:(int)index;
-    
     func horizontalScrollerViewAtIndex(scroller:HorizontalScroller, index:Int)->UIView!
     
     @optional func initialViewIndexForHorizontalScroller(scroller:HorizontalScroller)->Int
 }
 
-class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelegate {
+class HorizontalScroller: UIView, UIScrollViewDelegate {
 
     let ViewPadding:Float = 10
     let ViewDimensions:Float = 100
@@ -36,7 +34,7 @@ class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelega
         self.scrollView = UIScrollView(frame: CGRectMake(0, 0, frame.size.width, frame.size.height))
         super.init(frame: frame)
         
-        self.delegate = self
+        self.scrollView.delegate = self
         
         //create a tap gusture
         var tapRecognizer = UITapGestureRecognizer(target: self, action:"scrollerTapped")
@@ -122,26 +120,6 @@ class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelega
         self.delegate!.horizontalScrollerClickedViewAtIndex(self, index: viewIndex)
     }
     
-    func numberOfViewsForHorizontalScroller(scroller:HorizontalScroller)->Int
-    {
-        return self.scrollView.subviews.count
-    }
-    
-    func horizontalScrollerClickedViewAtIndex(scroller:HorizontalScroller, index:Int)->Void
-    {
-        
-    }
-    
-    func horizontalScrollerViewAtIndex(scroller:HorizontalScroller, index:Int)->UIView
-    {
-        return self.scrollView.subviews[index] as UIView
-    }
-    
-    func initialViewIndexForHorizontalScroller(scroller:HorizontalScroller)->Int
-    {
-        return 0
-    }
-    
     func scrollViewDidEndDragging(scrollView: UIScrollView!,willDecelerate decelerate: Bool)
     {
         if !decelerate
@@ -154,14 +132,4 @@ class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelega
     {
         self.centerCurrentView()
     }
-
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect)
-    {
-        // Drawing code
-    }
-    */
-
 }

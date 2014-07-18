@@ -21,11 +21,11 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         //initialize variables
         self.currentAlbumIndex = 0;
         self.scroller = HorizontalScroller(frame: CGRectMake(0, 0, 0, 0))
-        self.scroller.delegate = self
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        //update object
+        //update object and set delegate
+        self.scroller.delegate = self
         self.view.frame = CGRectMake(0, 120, self.view.frame.size.width, self.view.frame.size.height)
     }
 
@@ -80,7 +80,13 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     
     func numberOfViewsForHorizontalScroller(scroller:HorizontalScroller)->Int
     {
-        self.allAlbums!.count
+        return self.allAlbums!.count
+    }
+    
+    func horizontalScrollerViewAtIndex(scroller:HorizontalScroller, index:Int)->UIView!
+    {
+        var album:Album = self.allAlbums![index] as Album
+        return AlbumView(frame: CGRectMake(0, 0, 100, 100), albumCover:album.coverUrl!)
     }
     
     //custom methods
