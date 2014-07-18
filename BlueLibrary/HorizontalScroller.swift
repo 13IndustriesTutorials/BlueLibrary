@@ -47,6 +47,12 @@ class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelega
         self.addSubview(self.scrollView)
     }
     
+     override func didMoveToSuperview()
+    {
+        self.reload()
+        super.didMoveToSuperview()
+    }
+    
     func scrollerTapped(gesture:UITapGestureRecognizer)
     {
         //get the location tapped
@@ -91,20 +97,33 @@ class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelega
             xValue += self.ViewDimensions + self.ViewPadding
         }
         
-    
         self.scrollView.contentSize = CGSizeMake(xValue+self.ViewsOffset, self.frame.size.height)
         
         if self.delegate!.respondsToSelector("initialViewIndexForHorizontalScroller")
         {
-            var initialView:Int = self.delegate!.initialViewIndexForHorizontalScroller!(self)
-            var size:Float = 2 * self.ViewPadding
-            var result:Float = 3 * size
-            self.scrollView.contentOffset = CGPointMake(result, 0)
-            
+            let initialView = self.delegate!.initialViewIndexForHorizontalScroller!(self)
+            let padding:Float = (2 * self.ViewPadding) + self.ViewDimensions
+            self.scrollView.contentOffset = CGPointMake(Float(initialView) * padding, 0)
         }
-        
     }
 
+    func centerCurrentView()->Void
+    {
+        var xFinal:Int = Int(self.scrollView.contentOffset.x + (self.ViewsOffset/2 + self.ViewPadding))
+        var viewIndex:Int = xFinal / Int(self.ViewDimensions + (2.0 * self.ViewPadding))
+        
+        xFinal = viewIndex * Int(self.ViewDimensions + (2.0 * self.ViewPadding))
+        
+        self.scrollView.contentOffset = CGPointMake(Float(xFinal), 0)
+        self.delegate!.horizontalScrollerViewAtIndex(self, index: viewIndex)
+        
+        //int xFinal = scroller.contentOffset.x + (VIEWS_OFFSET/2) + VIEW_PADDING;
+        //int viewIndex = xFinal / (VIEW_DIMENSIONS+(2*VIEW_PADDING));
+        //xFinal = viewIndex * (VIEW_DIMENSIONS+(2*VIEW_PADDING));
+        //[scroller setContentOffset:CGPointMake(xFinal,0) animated:YES];
+        //[self.delegate horizontalScroller:self clickedViewAtIndex:viewIndex];
+    }
+    
     func numberOfViewsForHorizontalScroller(scroller:HorizontalScroller)->Int
     {
         return self.scrollView.subviews.count
@@ -118,6 +137,19 @@ class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelega
     func initialViewIndexForHorizontalScroller(scroller:HorizontalScroller)->Int
     {
         return 0
+    }
+    
+    func scrollViewDidEndDragging(scrollView: UIScrollView!,willDecelerate decelerate: Bool)
+    {
+        if !decelerate
+        {
+            self.centerCurrentView()
+        }
+    }
+    
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView!)
+    {
+        self.centerCurrentView()
     }
 
     /*
