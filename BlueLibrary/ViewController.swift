@@ -8,18 +8,24 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegate {
+class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, HorizontalScrollerDelegate {
 
     var allAlbums:AnyObject[]?
     var currentAlbumData:NSDictionary?
     var currentAlbumIndex:Int
     @IBOutlet var tableView : UITableView
-    
+    let scroller:HorizontalScroller
     
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
+        //initialize variables
         self.currentAlbumIndex = 0;
+        self.scroller = HorizontalScroller(frame: CGRectMake(0, 0, 0, 0))
+        self.scroller.delegate = self
+        
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        //update object
         self.view.frame = CGRectMake(0, 120, self.view.frame.size.width, self.view.frame.size.height)
     }
 
@@ -38,6 +44,8 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         
     }
     
+    
+    //tableview delegate methods
     func tableView(tableView: UITableView!,numberOfRowsInSection section: Int) -> Int
     {
         return (self.currentAlbumData!.objectForKey("titles") as AnyObject[]).count
@@ -61,12 +69,21 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         
         return cell
     }
+
     
-    func tableView(tableView: UITableView!, didSelectRowAtIndexPath indexPath: NSIndexPath!)
+    //HorizontalScroller Delegate methods
+    func horizontalScrollerClickedViewAtIndex(scroller:HorizontalScroller, index:Int)->Void
     {
-        
+        self.currentAlbumIndex = index
+        self.showDataForAlbumAtIndex(index)
     }
     
+    func numberOfViewsForHorizontalScroller(scroller:HorizontalScroller)->Int
+    {
+        self.allAlbums!.count
+    }
+    
+    //custom methods
     func showDataForAlbumAtIndex(albumIndex:Int)->Void
     {
         if albumIndex < self.allAlbums!.count{

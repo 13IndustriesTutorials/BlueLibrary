@@ -12,6 +12,10 @@ import UIKit
 {
     func numberOfViewsForHorizontalScroller(scroller:HorizontalScroller)->Int
     
+    func horizontalScrollerClickedViewAtIndex(scroller:HorizontalScroller, index:Int)->Void
+    
+    //horizontalScroller:(HorizontalScroller*)scroller clickedViewAtIndex:(int)index;
+    
     func horizontalScrollerViewAtIndex(scroller:HorizontalScroller, index:Int)->UIView!
     
     @optional func initialViewIndexForHorizontalScroller(scroller:HorizontalScroller)->Int
@@ -115,18 +119,17 @@ class HorizontalScroller: UIView, HorizontalScrollerDelegate, UIScrollViewDelega
         xFinal = viewIndex * Int(self.ViewDimensions + (2.0 * self.ViewPadding))
         
         self.scrollView.contentOffset = CGPointMake(Float(xFinal), 0)
-        self.delegate!.horizontalScrollerViewAtIndex(self, index: viewIndex)
-        
-        //int xFinal = scroller.contentOffset.x + (VIEWS_OFFSET/2) + VIEW_PADDING;
-        //int viewIndex = xFinal / (VIEW_DIMENSIONS+(2*VIEW_PADDING));
-        //xFinal = viewIndex * (VIEW_DIMENSIONS+(2*VIEW_PADDING));
-        //[scroller setContentOffset:CGPointMake(xFinal,0) animated:YES];
-        //[self.delegate horizontalScroller:self clickedViewAtIndex:viewIndex];
+        self.delegate!.horizontalScrollerClickedViewAtIndex(self, index: viewIndex)
     }
     
     func numberOfViewsForHorizontalScroller(scroller:HorizontalScroller)->Int
     {
         return self.scrollView.subviews.count
+    }
+    
+    func horizontalScrollerClickedViewAtIndex(scroller:HorizontalScroller, index:Int)->Void
+    {
+        
     }
     
     func horizontalScrollerViewAtIndex(scroller:HorizontalScroller, index:Int)->UIView
