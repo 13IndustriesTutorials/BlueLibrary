@@ -51,7 +51,7 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
     
      override func didMoveToSuperview()
     {
-        //self.reloadView()
+        self.reload()
     }
     
     func scrollerTapped(gesture:UITapGestureRecognizer)
@@ -73,13 +73,14 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
         }
     }
     
-    func reloadView()
+    func reload()
     {
         if self.delegate? == nil
         {
             return
         }
 
+        //remove all subviews
         for view:AnyObject in self.scrollView.subviews
         {
             (view as UIView).removeFromSuperview()
@@ -91,7 +92,8 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
         for index in 0..numberViews
         {
             xValue += self.ViewPadding
-            var view = self.scrollView.subviews[index] as UIView
+            
+            var view:UIView = self.delegate!.horizontalScrollerViewAtIndex(self, index: index)
             view.frame = CGRectMake(xValue, self.ViewPadding, self.ViewDimensions, self.ViewDimensions)
             self.scrollView.addSubview(view)
             xValue += self.ViewDimensions + self.ViewPadding
@@ -102,7 +104,7 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
         if self.delegate!.respondsToSelector("initialViewIndexForHorizontalScroller")
         {
             let initialView = self.delegate!.initialViewIndexForHorizontalScroller!(self)
-            let padding:Float = 0.0 //(2 * self.ViewPadding) + self.ViewDimensions
+            let padding:Float = (2 * self.ViewPadding) + self.ViewDimensions
             self.scrollView.contentOffset = CGPointMake(Float(initialView) * padding, 0)
         }
     }

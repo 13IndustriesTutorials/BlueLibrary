@@ -20,13 +20,16 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         
         //initialize variables
         self.currentAlbumIndex = 0;
-        self.scroller = HorizontalScroller(frame: CGRectMake(0, 0, 0, 0))
+        self.scroller = HorizontalScroller(frame:CGRectMake(0,0,0,0))
+        self.scroller.backgroundColor = UIColor(red: 0.76, green: 0.81, blue: 0.87, alpha: 1.0)
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.scroller = HorizontalScroller(frame: CGRectMake(0, 0, self.view.frame.size.width, 120))
         
         //update object and set delegate
         self.scroller.delegate = self
         self.view.frame = CGRectMake(0, 120, self.view.frame.size.width, self.view.frame.size.height)
+        self.view.addSubview(scroller);
     }
 
     override func viewDidLoad() {
@@ -36,6 +39,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         self.tableView.dataSource = self
         self.view.backgroundColor = UIColor(red: 0.76, green: 0.81, blue: 0.87, alpha: 1.0)
         self.allAlbums = LibraryAPI.sharedInstance.getAlbums()
+        self.reloadScroller()
         self.showDataForAlbumAtIndex(self.currentAlbumIndex)
     }
 
@@ -87,6 +91,24 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     {
         var album:Album = self.allAlbums![index] as Album
         return AlbumView(frame: CGRectMake(0, 0, 100, 100), albumCover:album.coverUrl!)
+    }
+    
+    func reloadScroller()
+    {
+        self.allAlbums = LibraryAPI.sharedInstance.getAlbums()
+        
+        if self.currentAlbumIndex < 0
+        {
+            self.currentAlbumIndex = 0;
+        }
+        else if self.currentAlbumIndex >= self.allAlbums!.count
+        {
+            self.currentAlbumIndex = allAlbums!.count-1;
+        }
+        
+        self.scroller.reload()
+        self.showDataForAlbumAtIndex(currentAlbumIndex)
+    
     }
     
     //custom methods

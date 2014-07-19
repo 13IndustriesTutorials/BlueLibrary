@@ -18,6 +18,9 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="so7-v7-Npg">
                     <rect key="frame" x="0.0" y="120" width="320" height="480"/>
                     <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <variation key="heightClass=regular" fixedFrame="YES">
+                        <rect key="frame" x="0.0" y="120" width="320" height="479"/>
+                    </variation>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="vvF-Y7-Elv"/>
                         <outlet property="delegate" destination="-1" id="Ljg-TF-JxU"/>
