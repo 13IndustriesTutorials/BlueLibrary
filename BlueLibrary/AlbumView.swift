@@ -34,6 +34,14 @@ class AlbumView: UIView {
         self.activityIndicatorView!.center = self.center
         self.activityIndicatorView!.startAnimating()
         self.addSubview(self.activityIndicatorView)
+        
+        //create a userInfo dictionary to pass to object receiving notification
+        var userInfo = Dictionary<String,Any>()  //create empty dictionary
+        userInfo["imageview"] = coverImage
+        userInfo["coverURL"] = albumCover
+        
+        //create notification
+        NSNotificationCenter.defaultCenter().postNotificationName("", object: self, userInfo:userInfo )
 
     }
     
