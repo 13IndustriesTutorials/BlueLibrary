@@ -42,9 +42,37 @@ class PersistencyManager: NSObject {
         }
     }
     
-    
     func deleteAlbumAtIndex(index:Int)
     {
         self.albums.removeAtIndex(index)
     }
+    
+    func saveImage(image:UIImage, filename:String)
+    {
+        var documentsDirectory = NSHomeDirectory().stringByAppendingString("/Documents/")
+        filename.stringByAppendingString(documentsDirectory)
+    }
+    
+    func getImage(filename:String)->UIImage
+    {
+        var documentsDirectory = NSHomeDirectory().stringByAppendingString("/Documents/")
+        filename.stringByAppendingString(documentsDirectory)
+        var data = NSData(contentsOfFile: filename)
+        return UIImage(data: data)
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
