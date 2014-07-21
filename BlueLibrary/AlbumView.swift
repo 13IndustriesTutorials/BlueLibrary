@@ -40,8 +40,8 @@ class AlbumView: UIView {
         userInfo["imageview"] = coverImage
         userInfo["coverURL"] = albumCover
         
-        //create notification
-        NSNotificationCenter.defaultCenter().postNotificationName("", object: self, userInfo:userInfo )
+        //post a notification to let objects know the view was created and the album cover needs to be downloaded
+        NSNotificationCenter.defaultCenter().postNotificationName("BLDownloadImageNotification", object: self, userInfo:userInfo )
 
     }
     

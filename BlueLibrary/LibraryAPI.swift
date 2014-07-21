@@ -29,6 +29,18 @@ class LibraryAPI: NSObject {
         self.persistencyManager = PersistencyManager()
         self.httpClient = HTTPClient()
         self.isOnline = false;
+        
+        super.init()
+        
+        //register as observer to be notified when ablumview is loaded
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "downloadImage", name: "BLDownloadImageNotification", object: nil)
+        
+    }
+    
+    //create deinitializer
+    deinit{
+        //deregister for notifications
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
     func getAlbums()->AnyObject[]!
