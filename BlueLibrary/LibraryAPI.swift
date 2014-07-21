@@ -69,5 +69,48 @@ class LibraryAPI: NSObject {
             self.httpClient!.postRequest("/api/deleteAlbum", body:"\(index.description)")
         }
     }
-
+    
+    func downloadImage(notification:NSNotification)
+    {
+        var imageView = notification.userInfo["imageView"] as UIImageView
+        var coverURL = notification.userInfo["coverURL"] as String
+        
+        imageView.image = self.persistencyManager!.getImage(coverURL.lastPathComponent)
+        
+        if imageView.image == nil
+        {
+            //download the image asynchronously
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
+                var image = self.httpClient!.downloadImage(coverURL)
+                
+                //back on main thread
+                dispatch_async(dispatch_get_main_queue(), {
+                    
+                    //update the view
+                    imageView.image = image;
+                    
+                    //save the image
+                    self.persistencyManager!.saveImage(image, filename: coverURL)
+                    
+                    })
+                
+            })
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
