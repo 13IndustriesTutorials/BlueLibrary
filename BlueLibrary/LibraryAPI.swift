@@ -91,7 +91,7 @@ class LibraryAPI: NSObject {
             //download the image asynchronously
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
                 
-                var image = self.httpClient!.downloadImage(coverURL)
+                let image = self.httpClient!.downloadImage(coverURL)
                 
                 //back on main thread
                 dispatch_async(dispatch_get_main_queue(), {

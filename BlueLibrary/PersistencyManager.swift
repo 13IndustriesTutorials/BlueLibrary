@@ -49,15 +49,15 @@ class PersistencyManager: NSObject {
     
     func saveImage(image:UIImage, filename:String)
     {
-        var documentsDirectory = NSHomeDirectory().stringByAppendingString("/Documents/")
+        let documentsDirectory = NSHomeDirectory().stringByAppendingString("/Documents/")
         filename.stringByAppendingString(documentsDirectory)
     }
     
     func getImage(filename:String)->UIImage
     {
-        var documentsDirectory = NSHomeDirectory().stringByAppendingString("/Documents/")
+        let documentsDirectory = NSHomeDirectory().stringByAppendingString("/Documents/")
         filename.stringByAppendingString(documentsDirectory)
-        var data = NSData(contentsOfFile: filename)
+        let data = NSData(contentsOfFile: filename)
         return UIImage(data: data)
     }
 }
