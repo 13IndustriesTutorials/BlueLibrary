@@ -21,10 +21,10 @@ class HTTPClient: NSObject {
         return nil
     }
     
-    func downloadImage(url:String)->UIImage!
+    func downloadImage(url:String)->UIImage
     {
-        let fileURL = NSURL(fileURLWithPath: url)
-        var data = NSData(contentsOfURL:fileURL)
+        let fileURL:NSURL = NSURL(string: url)
+        let data = NSData(contentsOfURL:fileURL)
         return UIImage(data: data)
     }
     
