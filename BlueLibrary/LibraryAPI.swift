@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class LibraryAPI: NSObject {
    
@@ -33,7 +34,7 @@ class LibraryAPI: NSObject {
         super.init()
         
         //register as observer to be notified when ablumview is loaded
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "downloadImage", name: "BLDownloadImageNotification", object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:"downloadImage:", name: "BLDownloadImageNotification", object: nil)
         
     }
     
@@ -72,28 +73,39 @@ class LibraryAPI: NSObject {
     
     func downloadImage(notification:NSNotification)
     {
+        //println("\(notification)")
+        
+        //THE PROBLEM IS WITH THE UIIMAGEVIEW
         var imageView = notification.userInfo["imageView"] as UIImageView
-        var coverURL = notification.userInfo["coverURL"] as String
+        //println("\(imageView)")
         
-        imageView.image = self.persistencyManager!.getImage(coverURL.lastPathComponent)
+        let coverURL = notification.userInfo["coverURL"] as NSString
+        //println("\(coverURL)")
         
+        //check if the image has been save previously
+        imageView.image = self.persistencyManager!.getImage(coverURL)
+        
+        //the image is not save, so download it now
         if imageView.image == nil
         {
             //download the image asynchronously
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),{
+                
                 var image = self.httpClient!.downloadImage(coverURL)
                 
                 //back on main thread
                 dispatch_async(dispatch_get_main_queue(), {
                     
                     //update the view
-                    imageView.image = image;
+                    if image != nil
+                    {
+                        imageView.image = image;
+                        
+                        //save the image
+                        self.persistencyManager!.saveImage(image, filename: coverURL)
+                    }
                     
-                    //save the image
-                    self.persistencyManager!.saveImage(image, filename: coverURL)
-                    
-                    })
-                
+                })
             })
         }
     }

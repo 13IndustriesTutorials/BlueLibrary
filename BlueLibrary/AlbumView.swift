@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class AlbumView: UIView {
 
@@ -16,16 +17,16 @@ class AlbumView: UIView {
     
     init(frame: CGRect) {
         
-        self.albumCover = nil;
         self.activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle:UIActivityIndicatorViewStyle.White)
         super.init(frame: frame)
     }
     
     init(frame: CGRect, albumCover:String) {
+        
         super.init(frame: frame)
         
-        self.backgroundColor = UIColor.blackColor()
         self.albumCover = albumCover;
+        self.backgroundColor = UIColor.blackColor()
         self.coverImage = UIImageView(frame: CGRectMake(5, 5, self.frame.size.width-10, self.frame.size.height-10))
         self.addSubview(self.coverImage)
         
@@ -35,23 +36,33 @@ class AlbumView: UIView {
         self.activityIndicatorView!.startAnimating()
         self.addSubview(self.activityIndicatorView)
         
-        //create a userInfo dictionary to pass to object receiving notification
-        var userInfo = Dictionary<String,Any>()  //create empty dictionary
-        userInfo["imageview"] = coverImage
-        userInfo["coverURL"] = albumCover
+        self.coverImage!.addObserver(self, forKeyPath: "image", options: NSKeyValueObservingOptions.New, context: nil)
         
+        //create a userInfo dictionary to pass to object receiving notification
+        //create empty dictionary with String keys and AnyObject type values
+        var albumInfo = Dictionary<String,AnyObject>()
+    
+        //you have to unwrap optionals before adding to dictionary
+        albumInfo["imageView"] = self.coverImage!
+        albumInfo["coverURL"] = self.albumCover!
+
         //post a notification to let objects know the view was created and the album cover needs to be downloaded
-        NSNotificationCenter.defaultCenter().postNotificationName("BLDownloadImageNotification", object: self, userInfo:userInfo )
+        let notificationCenter = NSNotificationCenter.defaultCenter()!
+        notificationCenter.postNotificationName("BLDownloadImageNotification", object:self, userInfo:albumInfo)
 
     }
     
-    /*
-    // Only override drawRect: if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func drawRect(rect: CGRect)
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: NSDictionary!, context: CMutableVoidPointer)
     {
-        // Drawing code
+        if keyPath == "image"
+        {
+            self.activityIndicatorView!.stopAnimating()
+        }
     }
-    */
-
+    
+    deinit
+    {
+        self.removeObserver(self, forKeyPath: nil)
+    }
+    
 }
