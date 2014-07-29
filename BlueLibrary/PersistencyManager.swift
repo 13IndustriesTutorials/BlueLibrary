@@ -10,7 +10,7 @@ import UIKit
 
 class PersistencyManager: NSObject {
    
-    var albums:Album[]
+    var albums:[Album]
     
     init()
     {
@@ -28,7 +28,7 @@ class PersistencyManager: NSObject {
     }
     
     
-    func getAlbums()->Album[]!
+    func getAlbums()->[Album]!
     {
         return self.albums
     }

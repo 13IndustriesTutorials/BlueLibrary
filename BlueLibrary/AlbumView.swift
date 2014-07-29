@@ -52,14 +52,15 @@ class AlbumView: UIView {
 
     }
     
-    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: NSDictionary!, context: CMutableVoidPointer)
+    
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>)
     {
         if keyPath == "image"
         {
             self.activityIndicatorView!.stopAnimating()
         }
     }
-    
+
     deinit
     {
         self.removeObserver(self, forKeyPath: nil)

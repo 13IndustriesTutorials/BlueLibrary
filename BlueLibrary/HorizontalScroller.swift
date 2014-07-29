@@ -16,14 +16,14 @@ import UIKit
     
     func horizontalScrollerViewAtIndex(scroller:HorizontalScroller, index:Int)->UIView!
     
-    @optional func initialViewIndexForHorizontalScroller(scroller:HorizontalScroller)->Int
+    optional func initialViewIndexForHorizontalScroller(scroller:HorizontalScroller)->Int
 }
 
 class HorizontalScroller: UIView, UIScrollViewDelegate {
 
-    let ViewPadding:Float = 10
-    let ViewDimensions:Float = 100
-    let ViewsOffset:Float = 100
+    let ViewPadding:CGFloat = 10
+    let ViewDimensions:CGFloat = 100
+    let ViewsOffset:CGFloat = 100
     
     let scrollView:UIScrollView
     
@@ -60,7 +60,9 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
         var location = gesture.locationInView(gesture.view)
         
         var size = self.delegate!.numberOfViewsForHorizontalScroller(self)
-        for index in 0..size
+        
+        var index:Int
+        for index = 0; index < size; index++
         {
             var view = self.scrollView.subviews[index] as UIView
             
@@ -75,7 +77,7 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
     
     func reload()
     {
-        if self.delegate? == nil
+        if !self.delegate?
         {
             return
         }
@@ -89,7 +91,8 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
         var xValue = self.ViewsOffset
         var numberViews = self.delegate!.numberOfViewsForHorizontalScroller(self)
         
-        for index in 0..numberViews
+        var index:Int
+        for index = 0; index < numberViews; index++
         {
             xValue += self.ViewPadding
             
@@ -99,13 +102,13 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
             xValue += self.ViewDimensions + self.ViewPadding
         }
         
-        self.scrollView.contentSize = CGSizeMake(xValue+self.ViewsOffset, self.frame.size.height)
+        self.scrollView.contentSize = CGSizeMake(xValue + self.ViewsOffset, self.frame.size.height)
         
         if self.delegate!.respondsToSelector("initialViewIndexForHorizontalScroller")
         {
             let initialView = self.delegate!.initialViewIndexForHorizontalScroller!(self)
-            let padding:Float = (2 * self.ViewPadding) + self.ViewDimensions
-            self.scrollView.contentOffset = CGPointMake(Float(initialView) * padding, 0)
+            let padding:CGFloat = (2 * self.ViewPadding) + self.ViewDimensions
+            self.scrollView.contentOffset = CGPointMake(CGFloat(initialView) * padding, 0.0)
         }
     }
 
@@ -116,7 +119,7 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
         
         xFinal = viewIndex * Int(self.ViewDimensions + (2.0 * self.ViewPadding))
         
-        self.scrollView.contentOffset = CGPointMake(Float(xFinal), 0)
+        self.scrollView.contentOffset = CGPointMake(CGFloat(xFinal), 0)
         self.delegate!.horizontalScrollerClickedViewAtIndex(self, index: viewIndex)
     }
     

@@ -10,10 +10,10 @@ import UIKit
 
 class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, HorizontalScrollerDelegate {
 
-    var allAlbums:AnyObject[]?
+    var allAlbums:[AnyObject]?
     var currentAlbumData:NSDictionary?
     var currentAlbumIndex:Int
-    @IBOutlet var tableView : UITableView
+    @IBOutlet var tableView : UITableView?
     let scroller:HorizontalScroller
     
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
@@ -35,8 +35,8 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
+        self.tableView!.delegate = self
+        self.tableView!.dataSource = self
         self.view.backgroundColor = UIColor(red: 0.76, green: 0.81, blue: 0.87, alpha: 1.0)
         self.allAlbums = LibraryAPI.sharedInstance.getAlbums()
         self.reloadScroller()
@@ -52,7 +52,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     //tableview delegate methods
     func tableView(tableView: UITableView!,numberOfRowsInSection section: Int) -> Int
     {
-        return (self.currentAlbumData!.objectForKey("titles") as AnyObject[]).count
+        return (self.currentAlbumData!.objectForKey("titles") as [AnyObject]).count
     }
     
     func tableView(tableView: UITableView!,cellForRowAtIndexPath indexPath: NSIndexPath!) ->UITableViewCell!
@@ -65,10 +65,10 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
             cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: cellIdentifier)
         }
         
-        var titles:NSArray = self.currentAlbumData!.objectForKey("titles") as AnyObject[]!
+        var titles:NSArray = self.currentAlbumData!.objectForKey("titles") as [AnyObject]!
         cell!.textLabel.text = titles.objectAtIndex(indexPath.row) as String
         
-        var values:NSArray = self.currentAlbumData!.objectForKey("values") as AnyObject[]!
+        var values:NSArray = self.currentAlbumData!.objectForKey("values") as [AnyObject]!
         cell!.detailTextLabel.text = values.objectAtIndex(indexPath.row) as String
         
         return cell
@@ -121,6 +121,11 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         else{
             self.currentAlbumData = nil;
         }
-        self.tableView.reloadData()
+        self.tableView!.reloadData()
+    }
+    
+    func saveCurrentState()
+    {
+        NSUserDefaults.standardUserDefaults().setInteger(currentAlbumIndex, forKey: "currentAlbumIndex");
     }
 }

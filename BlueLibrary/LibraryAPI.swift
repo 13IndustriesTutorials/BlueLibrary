@@ -44,7 +44,7 @@ class LibraryAPI: NSObject {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
-    func getAlbums()->AnyObject[]!
+    func getAlbums()->[AnyObject]!
     {
         return self.persistencyManager!.getAlbums()
     }
