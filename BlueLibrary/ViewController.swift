@@ -143,6 +143,45 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     }
     
     //custom methods
+    
+    func addAlbumAtIndex(album:Album, index:Int)
+    {
+        LibraryAPI.sharedInstance.addAlbum(album, index: index)
+        self.currentAlbumIndex = index
+        self.reloadScroller()
+    }
+    
+    func deletAlbum()
+    {
+        var deletedAlbum:Album = self.allAlbums![currentAlbumIndex] as Album
+        var sig:NSMethodSignature = self.methodSignatureForSelector("addAlbumAtIndex")
+        
+        //var selector = Selector("addAlbumAtIndex")
+        var undoAction:NSInvocationOperation = NSInvocationOperation(target: self, selector: "addAlbumAtIndex", object: nil)
+        undostack.append(undoAction)
+        LibraryAPI.sharedInstance.deleteAlbumAtIndex(currentAlbumIndex)
+        self.reloadScroller()
+        var item:UIBarButtonItem = self.toolBar.items![0] as UIBarButtonItem
+        item.enabled = true
+
+    }
+    
+    func undoAction()
+    {
+        if undostack.count > 0
+        {
+            var operation = NSInvocationOperation(target: self, selector: "removeLast", object:nil)
+            var undoaction = operation.invocation
+            //self.undostack.removeLast()
+        }
+        
+        if undostack.count == 0
+        {
+            var item:UIBarButtonItem = self.toolBar.items![0] as UIBarButtonItem
+            item.enabled = false
+        }
+    }
+    
     func showDataForAlbumAtIndex(albumIndex:Int)->Void
     {
         if albumIndex < self.allAlbums!.count{
