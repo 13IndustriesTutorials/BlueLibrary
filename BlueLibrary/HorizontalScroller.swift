@@ -37,7 +37,7 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
         self.scrollView.delegate = self
         
         //create a tap gusture
-        var tapRecognizer = UITapGestureRecognizer(target: self, action:"scrollerTapped")
+        var tapRecognizer = UITapGestureRecognizer(target: self, action:"scrollerTapped:")
         
         //set the scroll view delegate
         scrollView.delegate = self

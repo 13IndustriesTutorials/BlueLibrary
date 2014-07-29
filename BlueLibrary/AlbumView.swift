@@ -63,7 +63,7 @@ class AlbumView: UIView {
 
     deinit
     {
-        self.removeObserver(self, forKeyPath: nil)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
 }

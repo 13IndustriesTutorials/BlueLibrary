@@ -31,6 +31,11 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         self.view.frame = CGRectMake(0, 120, self.view.frame.size.width, self.view.frame.size.height)
         self.view.addSubview(scroller);
     }
+    
+    deinit
+    {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,8 +44,10 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         self.tableView!.dataSource = self
         self.view.backgroundColor = UIColor(red: 0.76, green: 0.81, blue: 0.87, alpha: 1.0)
         self.allAlbums = LibraryAPI.sharedInstance.getAlbums()
+        self.previousState()
         self.reloadScroller()
         self.showDataForAlbumAtIndex(self.currentAlbumIndex)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "saveCurrentState", name: UIApplicationDidEnterBackgroundNotification, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,6 +100,11 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         return AlbumView(frame: CGRectMake(0, 0, 100, 100), albumCover:album.coverUrl!)
     }
     
+    func initialViewIndexForHorizontalScroller(scroller: HorizontalScroller) -> Int
+    {
+        return self.currentAlbumIndex
+    }
+    
     func reloadScroller()
     {
         self.allAlbums = LibraryAPI.sharedInstance.getAlbums()
@@ -127,5 +139,11 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     func saveCurrentState()
     {
         NSUserDefaults.standardUserDefaults().setInteger(currentAlbumIndex, forKey: "currentAlbumIndex");
+    }
+    
+    func previousState()
+    {
+        self.currentAlbumIndex = NSUserDefaults.standardUserDefaults().integerForKey("currentAlbumIndex")
+        self.showDataForAlbumAtIndex(self.currentAlbumIndex)
     }
 }
