@@ -60,6 +60,10 @@ class LibraryAPI: NSObject {
         }
     }
     
+    func saveAlbums()
+    {
+        self.persistencyManager!.saveAlbums()
+    }
     
     func deleteAlbumAtIndex(index:Int)
     {
@@ -85,7 +89,7 @@ class LibraryAPI: NSObject {
         //check if the image has been save previously
         imageView.image = self.persistencyManager!.getImage(coverURL)
         
-        //the image is not save, so download it now
+        //the image is not saved, so download it now
         if imageView.image == nil
         {
             //download the image asynchronously

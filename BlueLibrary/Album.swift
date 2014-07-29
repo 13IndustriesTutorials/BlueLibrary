@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Album: NSCoding
+class Album: NSObject,NSCoding
 {
    
     var title:String?

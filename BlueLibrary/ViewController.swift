@@ -14,7 +14,10 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     var currentAlbumData:NSDictionary?
     var currentAlbumIndex:Int
     @IBOutlet var tableView : UITableView?
+    
     let scroller:HorizontalScroller
+    var toolBar:UIToolbar
+    var undostack:[AnyObject]
     
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
@@ -22,10 +25,19 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         self.currentAlbumIndex = 0;
         self.scroller = HorizontalScroller(frame:CGRectMake(0,0,0,0))
         self.scroller.backgroundColor = UIColor(red: 0.76, green: 0.81, blue: 0.87, alpha: 1.0)
+        self.toolBar = UIToolbar()
+        self.undostack = [AnyObject]()
         
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         self.scroller = HorizontalScroller(frame: CGRectMake(0, 0, self.view.frame.size.width, 120))
         
+        //configure the tool bar items
+        let undoButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Undo, target: self, action: "undoAction")
+        undoButton.enabled = false
+        let space = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.FlexibleSpace, target: nil, action: nil)
+        let deleteButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Trash, target: self, action: "deleteAlbum")
+        self.toolBar.setItems([undoButton,space,deleteButton], animated: false)
+        self.view.addSubview(self.toolBar)
         //update object and set delegate
         self.scroller.delegate = self
         self.view.frame = CGRectMake(0, 120, self.view.frame.size.width, self.view.frame.size.height)
@@ -53,6 +65,13 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
+    }
+    
+    override func viewWillLayoutSubviews()
+    {
+        super.viewWillLayoutSubviews()
+        self.toolBar.frame = CGRectMake(0, self.view.frame.size.height-44, self.view.frame.size.width, 44)
+        self.tableView!.frame = CGRectMake(0, 130, self.view.frame.size.width, self.view.frame.height - 200)
     }
     
     
@@ -139,6 +158,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     func saveCurrentState()
     {
         NSUserDefaults.standardUserDefaults().setInteger(currentAlbumIndex, forKey: "currentAlbumIndex");
+        LibraryAPI.sharedInstance.saveAlbums()
     }
     
     func previousState()
