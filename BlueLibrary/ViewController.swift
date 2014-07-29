@@ -151,14 +151,17 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         self.reloadScroller()
     }
     
-    func deletAlbum()
+    func deleteAlbum()
     {
         var deletedAlbum:Album = self.allAlbums![currentAlbumIndex] as Album
-        var sig:NSMethodSignature = self.methodSignatureForSelector("addAlbumAtIndex")
+        //var sig = self.methodSignatureForSelector("addAlbumAtIndex")
         
-        //var selector = Selector("addAlbumAtIndex")
-        var undoAction:NSInvocationOperation = NSInvocationOperation(target: self, selector: "addAlbumAtIndex", object: nil)
+        var undoAction = self.methodSignatureForSelector("addAlbumAtIndex")
+        
+        //NSInvocationOperation(target: self, selector: "addAlbumAtIndex", object: nil)
+        println("\(undoAction)")
         undostack.append(undoAction)
+        println("\(self.undostack)")
         LibraryAPI.sharedInstance.deleteAlbumAtIndex(currentAlbumIndex)
         self.reloadScroller()
         var item:UIBarButtonItem = self.toolBar.items![0] as UIBarButtonItem
@@ -170,9 +173,11 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     {
         if undostack.count > 0
         {
-            var operation = NSInvocationOperation(target: self, selector: "removeLast", object:nil)
-            var undoaction = operation.invocation
-            //self.undostack.removeLast()
+            //get operation from the stack
+            //WE NEED TO FIX THIS LINE
+            var operation = self.undostack[self.undostack.count-1] as NSInvocationOperation
+            operation.invocation.invoke() //call the action
+            self.undostack.removeLast() //remove the action
         }
         
         if undostack.count == 0
