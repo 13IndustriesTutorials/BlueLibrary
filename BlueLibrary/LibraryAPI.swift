@@ -25,7 +25,7 @@ class LibraryAPI: NSObject {
         return Singleton.Instance
     }
     
-    init()
+    override init()
     {
         self.persistencyManager = PersistencyManager()
         self.httpClient = HTTPClient()

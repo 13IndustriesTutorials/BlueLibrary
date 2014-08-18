@@ -27,7 +27,7 @@ class Album: NSObject,NSCoding
         
     }
     
-    init(coder aDecoder: NSCoder!)
+    required init(coder aDecoder: NSCoder!)
     {
         self.title = aDecoder.decodeObjectForKey("album") as? String
         self.artist = aDecoder.decodeObjectForKey("artist") as? String

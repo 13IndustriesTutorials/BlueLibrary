@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegate, HorizontalScrollerDelegate {
+class ViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, HorizontalScrollerDelegate {
 
     var allAlbums:[AnyObject]?
     var currentAlbumData:NSDictionary?
@@ -19,7 +19,11 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
     var toolBar:UIToolbar
     var undostack:[AnyObject]
     
-    init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+    required init(coder: NSCoder) {
+        fatalError("NSCoding not supported")
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         
         //initialize variables
         self.currentAlbumIndex = 0;
@@ -86,7 +90,7 @@ class ViewController: UIViewController,UITableViewDataSource, UITableViewDelegat
         let cellIdentifier = "cellIdentifier"
         var cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as? UITableViewCell
         
-        if !cell{
+        if cell == nil {
             
             cell = UITableViewCell(style: UITableViewCellStyle.Value1, reuseIdentifier: cellIdentifier)
         }

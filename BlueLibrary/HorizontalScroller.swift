@@ -29,7 +29,11 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
     
     var delegate:HorizontalScrollerDelegate?
     
-    init(frame: CGRect) {
+    required init(coder: NSCoder) {
+        fatalError("NSCoding not supported")
+    }
+    
+    override init(frame: CGRect) {
         //create the scroll view
         self.scrollView = UIScrollView(frame: CGRectMake(0, 0, frame.size.width, frame.size.height))
         super.init(frame: frame)
@@ -77,7 +81,7 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
     
     func reload()
     {
-        if !self.delegate?
+        if self.delegate == nil
         {
             return
         }

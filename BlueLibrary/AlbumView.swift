@@ -15,7 +15,11 @@ class AlbumView: UIView {
     var coverImage:UIImageView?
     var activityIndicatorView:UIActivityIndicatorView?
     
-    init(frame: CGRect) {
+    required init(coder: NSCoder) {
+        fatalError("NSCoding not supported")
+    }
+    
+    override init(frame: CGRect) {
         
         self.activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle:UIActivityIndicatorViewStyle.White)
         super.init(frame: frame)
@@ -28,13 +32,13 @@ class AlbumView: UIView {
         self.albumCover = albumCover;
         self.backgroundColor = UIColor.blackColor()
         self.coverImage = UIImageView(frame: CGRectMake(5, 5, self.frame.size.width-10, self.frame.size.height-10))
-        self.addSubview(self.coverImage)
+        self.addSubview(self.coverImage!)
         
         
         self.activityIndicatorView = UIActivityIndicatorView(activityIndicatorStyle:UIActivityIndicatorViewStyle.WhiteLarge)
         self.activityIndicatorView!.center = self.center
         self.activityIndicatorView!.startAnimating()
-        self.addSubview(self.activityIndicatorView)
+        self.addSubview(self.activityIndicatorView!)
         
         self.coverImage!.addObserver(self, forKeyPath: "image", options: NSKeyValueObservingOptions.New, context: nil)
         
@@ -53,13 +57,13 @@ class AlbumView: UIView {
     }
     
     
-    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafePointer<()>)
-    {
+    override func observeValueForKeyPath(keyPath: String!, ofObject object: AnyObject!, change: [NSObject : AnyObject]!, context: UnsafeMutablePointer<()>) {
         if keyPath == "image"
         {
             self.activityIndicatorView!.stopAnimating()
         }
     }
+    
 
     deinit
     {

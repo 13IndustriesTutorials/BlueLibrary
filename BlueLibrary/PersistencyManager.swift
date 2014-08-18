@@ -12,7 +12,7 @@ class PersistencyManager: NSObject {
    
     var albums:[Album]
     
-    init()
+    override init()
     {
         
         self.albums = [Album]()
